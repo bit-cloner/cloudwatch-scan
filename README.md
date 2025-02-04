@@ -34,65 +34,71 @@ Download the appropriate binary for your operating system and CPU architecture:
 ### For Apple Silicon MAC OS (arm64)
 
 ```sh
-VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/your-repo/cloudwatch-search/releases/latest | sed 's#.*/tag/##')
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-curl -LO https://github.com/your-repo/cloudwatch-search/releases/download/$VERSION/cloudwatch-search-$VERSION-darwin-arm64.tar.gz
+curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-arm64.tar.gz
 
-tar -xzf cloudwatch-search-$VERSION-darwin-arm64.tar.gz
+tar -xzf cws-$VERSION-darwin-arm64.tar.gz
 
-chmod +x cloudwatch-search
+chmod +x cws
+
+./cws
 ```
 
-### Bash (Linux/macOS)
+For Intel-based MAC OS
+```sh
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-1. Determine your operating system and architecture:
-    ```bash
-    uname -s
-    uname -m
-    ```
+curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-amd64.tar.gz
 
-2. Download the release binary:
-    ```bash
-    OS=$(uname -s)
-    ARCH=$(uname -m)
-    curl -Lo cloudwatch-search https://github.com/your-repo/cloudwatch-search/releases/latest/download/cloudwatch-search-$OS-$ARCH
-    ```
+tar -xzf cws-$VERSION-darwin-amd64.tar.gz
 
-3. Make the binary executable:
-    ```bash
-    chmod +x cloudwatch-search
-    ```
+chmod +x cws
 
-4. Move the binary to a directory in your PATH:
-    ```bash
-    sudo mv cloudwatch-search /usr/local/bin/
-    ```
+./cws
+```
+### Linux
+For x86_64 systems
+```sh
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-### Windows PowerShell
+curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-amd64.tar.gz
 
-1. Determine your operating system and architecture:
-    ```powershell
-    $OS = (Get-CimInstance Win32_OperatingSystem).Caption
-    $ARCH = (Get-CimInstance Win32_Processor).Architecture
-    ```
+tar -xzf cws-$VERSION-linux-amd64.tar.gz
 
-2. Download the release binary:
-    ```powershell
-    $url = "https://github.com/your-repo/cloudwatch-search/releases/latest/download/cloudwatch-search-$OS-$ARCH.exe"
-    Invoke-WebRequest -Uri $url -OutFile cloudwatch-search.exe
-    ```
+chmod +x cws
 
-3. Move the binary to a directory in your PATH:
-    ```powershell
-    Move-Item -Path .\cloudwatch-search.exe -Destination "C:\Program Files\"
-    [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\Program Files\", [System.EnvironmentVariableTarget]::Machine)
-    ```
+./cws
+```
 
-## Usage
+For ARM64 systems
+```sh
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-This CLI tool is essential for developers and system administrators who need to search and analyze log data from AWS CloudWatch. It simplifies the process of querying logs, allowing users to filter logs based on various criteria such as log group, log stream, time range, and specific patterns.
+curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-arm64.tar.gz
 
-### Example Commands
+tar -xzf cws-$VERSION-linux-arm64.tar.gz
 
+chmod +x cws
 
-By using this CLI tool, users can quickly and efficiently access and analyze their CloudWatch logs, leading to faster issue resolution and better insights into their applications and systems.
+./cws
+```
+
+Windows
+
+```sh
+# For 64-bit systems
+$VERSION = (Invoke-WebRequest -Uri "https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
+
+Invoke-WebRequest -Uri https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-amd64.zip -OutFile cws.zip
+
+Expand-Archive -Path cws.zip -DestinationPath .
+
+# For 32-bit systems
+$VERSION = (Invoke-WebRequest -Uri "https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
+
+Invoke-WebRequest -Uri https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-386.zip -OutFile cws.zip
+
+Expand-Archive -Path cws.zip -DestinationPath .
+```
+
