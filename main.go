@@ -64,9 +64,25 @@ func main() {
 	}
 
 	// Prompt for input
-	logGroupName := promptInput("Enter Log Group name or press return to search all groups:")
-	if logGroupName == "" {
-		logGroupName = "ALL"
+	cwlClient := cloudwatchlogs.NewFromConfig(cfg)
+	logGroups, err := listLogGroups(ctx, cwlClient)
+	if err != nil {
+		log.Fatalf("Error listing log groups: %v", err)
+	}
+
+	var selectedLogGroups []string
+	promptLogGroups := &survey.MultiSelect{
+		Message:  "Select log groups:",
+		Options:  logGroups,
+		PageSize: 15,
+	}
+	err = survey.AskOne(promptLogGroups, &selectedLogGroups)
+	if err != nil {
+		log.Fatalf("Failed to get user input: %v", err)
+	}
+
+	if len(selectedLogGroups) == 0 {
+		log.Fatalf("No log groups selected.")
 	}
 	filterPattern := promptInput("Enter filter pattern to search logs:")
 	if filterPattern == "" {
@@ -151,25 +167,12 @@ func main() {
 	}
 
 	// Iterate over log groups
-	cwlClient := cloudwatchlogs.NewFromConfig(cfg)
-
-	var logGroups []string
-	if logGroupName == "ALL" {
-		logGroups, err = listLogGroups(ctx, cwlClient)
-		if err != nil {
-			color.Red("Error listing log groups in region %s: %v\n", selectedRegion, err)
-
-		}
-		fmt.Printf("Found %d log groups in region %s\n", len(logGroups), selectedRegion)
-	} else {
-		logGroups = []string{logGroupName}
-	}
 
 	// Use routines and parallelisation to search for five long groups at a time But make sure that there is no throttling exception or handle the throttling exception
 	sem := make(chan struct{}, 5) // Semaphore to limit concurrency to 5
 	var wg sync.WaitGroup
 
-	for _, logGroup := range logGroups {
+	for _, logGroup := range selectedLogGroups {
 		wg.Add(1)
 		sem <- struct{}{} // Acquire a slot
 

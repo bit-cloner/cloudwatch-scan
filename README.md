@@ -34,9 +34,9 @@ Download the appropriate binary for your operating system and CPU architecture:
 ### For Apple Silicon MAC OS (arm64)
 
 ```sh
-VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/bit-cloner/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-arm64.tar.gz
+curl -LO https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-arm64.tar.gz
 
 tar -xzf cws-$VERSION-darwin-arm64.tar.gz
 
@@ -47,9 +47,9 @@ chmod +x cws
 
 For Intel-based MAC OS
 ```sh
-VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/bit-cloner/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-amd64.tar.gz
+curl -LO https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-darwin-amd64.tar.gz
 
 tar -xzf cws-$VERSION-darwin-amd64.tar.gz
 
@@ -60,9 +60,9 @@ chmod +x cws
 ### Linux
 For x86_64 systems
 ```sh
-VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/bit-cloner/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-amd64.tar.gz
+curl -LO https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-amd64.tar.gz
 
 tar -xzf cws-$VERSION-linux-amd64.tar.gz
 
@@ -73,9 +73,9 @@ chmod +x cws
 
 For ARM64 systems
 ```sh
-VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/bit-cloner/cloudwatch-scan/releases/latest | sed 's#.*/tag/##')
 
-curl -LO https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-arm64.tar.gz
+curl -LO https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-linux-arm64.tar.gz
 
 tar -xzf cws-$VERSION-linux-arm64.tar.gz
 
@@ -88,17 +88,21 @@ Windows
 
 ```sh
 # For 64-bit systems
-$VERSION = (Invoke-WebRequest -Uri "https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
+$VERSION = (Invoke-WebRequest -Uri "https://github.com/bit-cloner/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
 
-Invoke-WebRequest -Uri https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-amd64.zip -OutFile cws.zip
+Invoke-WebRequest -Uri https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-amd64.zip -OutFile cws.zip
 
 Expand-Archive -Path cws.zip -DestinationPath .
 
 # For 32-bit systems
-$VERSION = (Invoke-WebRequest -Uri "https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
+$VERSION = (Invoke-WebRequest -Uri "https://github.com/bit-cloner/cloudwatch-scan/releases/latest" -UseBasicParsing).BaseResponse.ResponseUri -replace ".*/tag/", ""
 
-Invoke-WebRequest -Uri https://github.com/sudheer-k-bhat/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-386.zip -OutFile cws.zip
+Invoke-WebRequest -Uri https://github.com/bit-cloner/cloudwatch-scan/releases/download/$VERSION/cws-$VERSION-windows-386.zip -OutFile cws.zip
 
 Expand-Archive -Path cws.zip -DestinationPath .
 ```
+## Usage
 
+```sh
+./cws
+```
