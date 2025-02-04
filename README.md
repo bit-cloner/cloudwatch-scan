@@ -1,9 +1,47 @@
-/*
-Package main provides a command-line interface (CLI) tool for searching through AWS CloudWatch logs. This tool is designed to help users efficiently query and filter log data from their AWS CloudWatch logs, making it easier to diagnose issues, monitor applications, and analyze log data.
+# CloudWatch Search Tool
+
+A command-line interface (CLI) tool for searching and filtering AWS CloudWatch logs efficiently. Designed to help diagnose issues, monitor applications, and analyze log data.
+
+## Features
+
+- **Fast Search**: 
+  - Efficiently query large volumes of CloudWatch logs
+  - Quick results processing
+  - Concurrent log group scanning
+
+- **Flexible Filtering**:
+  - Time range-based filtering
+  - Pattern matching support
+  - Log group selection
+  - Stream filtering capabilities
+
+- **Search Options**:
+  - Cross-region log search
+  - Real-time log streaming
+  - Multi-pattern matching
+  - Regular expression support
+
+- **Advanced Features**:
+  - Structured query support
+  - Output formatting options
+  - Search result exports
+  - Custom time ranges
 
 ## Installation
 
-To install the CLI tool, you need to download the appropriate release binary for your CPU and operating system architecture. Follow the instructions below for your respective environment:
+Download the appropriate binary for your operating system and CPU architecture:
+
+### For Apple Silicon MAC OS (arm64)
+
+```sh
+VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/your-repo/cloudwatch-search/releases/latest | sed 's#.*/tag/##')
+
+curl -LO https://github.com/your-repo/cloudwatch-search/releases/download/$VERSION/cloudwatch-search-$VERSION-darwin-arm64.tar.gz
+
+tar -xzf cloudwatch-search-$VERSION-darwin-arm64.tar.gz
+
+chmod +x cloudwatch-search
+```
 
 ### Bash (Linux/macOS)
 
@@ -58,4 +96,3 @@ This CLI tool is essential for developers and system administrators who need to 
 
 
 By using this CLI tool, users can quickly and efficiently access and analyze their CloudWatch logs, leading to faster issue resolution and better insights into their applications and systems.
-*/

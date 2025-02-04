@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 
 	"time"
 
@@ -71,6 +72,8 @@ func main() {
 	if filterPattern == "" {
 		log.Fatalf("Filter pattern must be set.")
 	}
+	filterPattern = sanitizeInput(filterPattern)
+	fmt.Println("Filter pattern:", filterPattern)
 
 	// Prompt for timeframe
 	timeframe := promptTimeframe()
@@ -180,6 +183,30 @@ func main() {
 
 	wg.Wait()
 
+}
+
+// Cloud watch needs some special characters To be escaped, if they are present in a word
+func sanitizeInput(filterPattern string) string {
+	specialChars := "#-$*()+;~:'/%,=_&!? "
+	words := strings.Fields(filterPattern)
+	var sanitizedWords []string
+
+	for _, word := range words {
+		needsEscaping := false
+		for _, char := range word {
+			if strings.ContainsRune(specialChars, char) {
+				needsEscaping = true
+				break
+			}
+		}
+		if needsEscaping {
+			sanitizedWords = append(sanitizedWords, "`"+word+"`")
+		} else {
+			sanitizedWords = append(sanitizedWords, word)
+		}
+	}
+
+	return strings.Join(sanitizedWords, " ")
 }
 
 func promptTimeframe() string {
